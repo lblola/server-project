@@ -20,9 +20,9 @@ public class Category {
     @Column(name="name")
     private String name;
 
-    @JsonManagedReference
+   /* @JsonManagedReference(value = "category")
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private List<Product> productList;
+    private List<Product> productList;*/
 
     public Category(String name) {
         this.name = name;

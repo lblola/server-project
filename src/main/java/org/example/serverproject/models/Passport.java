@@ -23,13 +23,12 @@ public class Passport {
     private int passportNum;
 
 
-    @JsonManagedReference
-    @OneToOne(optional = false, cascade = CascadeType.REMOVE)
+    @JsonBackReference(value="employee")
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name="employee_id", referencedColumnName = "employee_id")
     private Employee employee;
 
-    public Passport(int passportNum, Employee employee) {
+    public Passport(int passportNum) {
         this.passportNum = passportNum;
-        this.employee = employee;
     }
 }

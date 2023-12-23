@@ -1,7 +1,6 @@
 package org.example.serverproject.serviceImpl;
 
 import org.example.serverproject.models.Category;
-import org.example.serverproject.models.Employee;
 import org.example.serverproject.repositories.CategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -10,34 +10,47 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional(readOnly = true)
 public class EmployeeServiceImpl implements EmployeeService {
-    private EmployeeRepo employeeRepo;
+    private final EmployeeRepo employeeRepo;
 
     @Autowired
     public EmployeeServiceImpl(EmployeeRepo employeeRepo) {
         this.employeeRepo = employeeRepo;
     }
 
+    @Transactional
     @Override
     public List<Employee> findAll() {
         return employeeRepo.findAll();
     }
 
+    @Transactional
     @Override
     public Employee findOne(int id) {
         return employeeRepo.findById(id).orElse(null);
     }
 
-    @Override
     @Transactional
+    @Override
     public void save(Employee employee) {
         employeeRepo.save(employee);
     }
 
-    @Override
     @Transactional
-    public void deleteById(int id) {
-        employeeRepo.deleteById(id);
+    @Override
+    public void deleteById(String name) {
+        employeeRepo.findEmployeeByName(name).ifPresent(employee -> employeeRepo.deleteEmployeeByName(name));
+    }
+
+    @Transactional
+    @Override
+    public void patch(int id, Employee employee) {
+        Employee curEmployee = employeeRepo.findById(id).orElse(null);
+
+        if(curEmployee != null && employee.getName() != null){
+            curEmployee.setName(employee.getName());
+            curEmployee.setSalary(employee.getSalary());
+            employeeRepo.save(curEmployee);
+        }
     }
 }

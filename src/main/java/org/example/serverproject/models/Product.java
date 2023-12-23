@@ -7,6 +7,8 @@ import jakarta.validation.constraints.Min;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name="product")
 @Data
@@ -24,10 +26,14 @@ public class Product {
     @Min(value = 1, message = "price > 0")
     private int price;
 
-    @JsonBackReference
+    /*@JsonBackReference(value = "category")
     @ManyToOne(optional = false)
     @JoinColumn(name="category_id", referencedColumnName = "id")
-    private Category category;
+    private Category category;*/
+
+    @ManyToMany(mappedBy = "productList")
+    @JsonBackReference(value = "clients")
+    private List<Client> clients;
 
     public Product(String name, int price) {
         this.name = name;
