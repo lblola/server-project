@@ -1,6 +1,5 @@
 package org.example.serverproject.service;
 
-import org.example.serverproject.models.Employee;
 import org.example.serverproject.models.Passport;
 
 import java.util.List;

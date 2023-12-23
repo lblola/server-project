@@ -38,25 +38,29 @@ public class ProductController {
 
     @PostMapping
     public HttpEntity<HttpStatus> addNewProduct(@RequestBody @Valid Product product, BindingResult bindingResult){
-        productService.save(product);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        if(!bindingResult.hasErrors()){
+            productService.save(product);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
-    @DeleteMapping("/{id}")
+
+    /*@DeleteMapping("/{id}")
     public HttpEntity<HttpStatus> deleteProduct(@PathVariable("id") int id){
         productService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
-    }
+    }*/
 
     @GetMapping("/category")
     public List<Category> getAllCategories(){
         return categoryService.findAll();
     }
 
-    @GetMapping("/{id}/category")
+   /* @GetMapping("/{id}/category")
     public Category getCategory(@PathVariable("id") int id){
         Category category = productService.findOne(id).getCategory();
         return categoryService.findOne(category.getCategory_id());
-    }
+    }*/
 
     @PostMapping("/category")
     public HttpEntity<HttpStatus> addNewCategory(@RequestBody Category category){
@@ -64,12 +68,12 @@ public class ProductController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}/category")
+   /* @DeleteMapping("/{id}/category")
     public HttpEntity<HttpStatus> deleteCategory(@PathVariable("id") int id){
         Category category = productService.findOne(id).getCategory();
         categoryService.deleteById(category.getCategory_id());
         return ResponseEntity.ok(HttpStatus.OK);
-    }
+    }*/
 
 
 }
